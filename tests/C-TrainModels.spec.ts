@@ -39,6 +39,7 @@ test('Train Models', async ({ browser }) => {
   await page.getByRole('option').first().click();
   await page.waitForTimeout(2000);
   await page.getByRole('button', { name: 'Next' }).click();
+  await page.waitForTimeout(2000);
   await selectModel(page);
   const element = await page.locator('.MuiCardContent-root').first();
   const text = await element.textContent();
@@ -58,12 +59,14 @@ test('Train Models', async ({ browser }) => {
   await page.getByRole('option').nth(1).click();
   await page.waitForTimeout(2000);
   await page.getByRole('button', { name: 'Next' }).click();
+  await page.waitForTimeout(2000);
   await selectModel(page);
   await  page.getByRole('button', { name: 'Next' });
   await page.waitForTimeout(6000);
   await page.getByRole('button', { name: 'Next' }).click();
   await page.waitForTimeout(2000);
   await page.getByRole('button', { name: 'Next' }).click();
+  await page.waitForTimeout(2000);
   const alertElement = await page.getByLabel('Session name');
   const isAlertVisible = await alertElement.isVisible();
   if (isAlertVisible) {
@@ -141,6 +144,7 @@ test('Canceling Model Training', async ({ browser }) => {
    await page.getByRole('option').nth(2).click();
    await page.waitForTimeout(2000);
    await page.getByRole('button', { name: 'Next' }).click();
+   await page.waitForTimeout(2000);
    await selectModel(page);
    await page.waitForTimeout(1000);
    await page.getByRole('button', { name: 'Cancel training' }).first().click();
