@@ -3,7 +3,6 @@ const chai = require('chai');
 import { initializeContextAndPage } from './authentification';
 test('Trained Models', async ({ browser }) => {
   const { context, page } = await initializeContextAndPage();
-  //await page.pause()
   await page.getByRole('button', { name: 'Trained models' }).click();
   await page.getByLabel('Select dataset').click();
   await page.getByRole('listbox', { name: 'Select dataset' });
@@ -31,12 +30,10 @@ test('Trained Models', async ({ browser }) => {
     console.log('Plots are not displayed.');
   }
   await page.waitForTimeout(3000);
-  //await page.pause()
   await page.getByRole('button', { name: 'Predict' }).click();
   await page.getByLabel('models').click();
   await page.getByRole('option').first().getByRole('checkbox').check();
   await page.keyboard.press('Escape');
-  //await page.pause()
   await page.getByLabel('File upload').check();
   await page.getByRole('button', { name: 'Select dataset' }).setInputFiles(process.env.INPUT_PREDICTION_PATH as string);
   await page.getByRole('button', { name: 'Submit' }).click();
@@ -48,12 +45,6 @@ test('Trained Models', async ({ browser }) => {
   const download = await downloadPromise;
   console.log('Successful test');
   await browser.close();
-
-
-
-
-
-
 
 
 

@@ -28,8 +28,7 @@ if (isNodataVisible) {
     await previousButton.click();
   } else {
     console.log('Details were not displayed');
-    // await page.close();
-    // browser.close();
+   
   }
   console.log('Details were displayed correctly');
   await page.getByRole('button', { name: 'Generate PDF' }).click();
@@ -74,20 +73,8 @@ console.log('The group has been assigned to the dataset correctly');
 await page.getByLabel('My workspace').click();
 await page.getByRole('option').nth(2).click();
 await page.waitForTimeout(3000);
-// const groupeElement= await page.getByRole('option').first();
-// const affectedGroupElement= page.getByRole('cell').first();
-// if (groupeElement && affectedGroupElement) {
-//   const groupe = await groupeElement.textContent();
-//   const affectedgroup = await affectedGroupElement.textContent();
-
-//   if (groupe === affectedgroup) {
-//     console.log('the data for the selected group is displayed correctly');
-//   }
-// }
 
 }
-
-
 
 
 

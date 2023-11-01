@@ -40,35 +40,12 @@ test('Train Models', async ({ browser }) => {
   await page.waitForTimeout(2000);
   await page.getByRole('button', { name: 'Next' }).click();
   await selectModel(page);
-
-  // const classification_models = await page.getByText('List of classification models').isVisible();
-  // if(classification_models){
-  // await page.locator('div').filter({ hasText: /^Logistic regression$/ }).getByLabel('Logistic regression').check();
-  // await page.getByLabel('Naive Bayes').check();
-  // await page.getByLabel('Decision trees').check();
-  // await page.getByLabel('Support vector machines (SVM)').check();
-  // await page.getByLabel('Xgboost').check();
-  // await page.getByLabel('Random Forest Classifier').check();
-  // await page.getByLabel('Multilayer perceptron').check();
-  // await page.getByRole('button', { name: 'Next' }).click();
-  // }else{
-
-  //   await page.locator('div').filter({ hasText: /^Linear regression$/ }).getByLabel('Linear regression').check();
-  //   await page.getByLabel('Xgboost').check();
-  //   await page.getByLabel('Random Forest Regression').check();
-  //   await page.getByLabel('Decision Tree Regression').check();
-
-  // }
-
-  //await page.pause()
   const element = await page.locator('.MuiCardContent-root').first();
   const text = await element.textContent();
   if (text !== null) {
    
     if (text.includes('An error occurred during the training')) {
       console.log('Error message detected :', text);
-
-      // Fermer la page
       await page.close();
    } else {
   //*******Launching a New train ******** */
@@ -80,12 +57,6 @@ test('Train Models', async ({ browser }) => {
   await page.locator('div').filter({ hasText: /^Select target$/ }).locator('#combo-box-demo').click();
   await page.getByRole('option').nth(1).click();
   await page.waitForTimeout(2000);
-  // await page.getByRole('button', { name: 'Next' }).click();
-  // await page.locator('div').filter({ hasText: /^Linear regression$/ }).getByLabel('Linear regression').check();
-  // await page.getByLabel('Xgboost').check();
-  // await page.getByLabel('Random Forest Regression').check();
-  // await page.getByLabel('Decision Tree Regression').check();
-  //await page.pause()
   await page.getByRole('button', { name: 'Next' }).click();
   await selectModel(page);
   await  page.getByRole('button', { name: 'Next' });
@@ -94,7 +65,6 @@ test('Train Models', async ({ browser }) => {
   await page.waitForTimeout(2000);
   await page.getByRole('button', { name: 'Next' }).click();
   const alertElement = await page.getByLabel('Session name');
-  //const alertElement = await page.waitForSelector('[role="alert"]');
   const isAlertVisible = await alertElement.isVisible();
   if (isAlertVisible) {
   await page.getByLabel('Session name').click();
@@ -130,7 +100,6 @@ test('Train Models', async ({ browser }) => {
   console.log('Plots were exported successfully');
   await page.waitForTimeout(2000);
 
-  //await page.pause()
   //*******Redirection to ML Flow Page******** */
   await page.getByRole('link').first().click();
    await page.waitForTimeout(4000);
@@ -149,19 +118,10 @@ test('Train Models', async ({ browser }) => {
   }
 
   await page.getByRole('button', { name: 'Next' }).click();
- //*******Session Selection and Display of Training Plots******** */
 }
-
-
- 
-
-
 
 console.log('Successful test');
 await page.close();
-  
-
-
 
 
 });
@@ -171,7 +131,6 @@ await page.close();
 
 test('Canceling Model Training', async ({ browser }) => {
   const { context, page } = await initializeContextAndPage();
-   //await page.pause()
    await page.waitForTimeout(2000);
    await page.getByRole('button', { name: 'Train Models' }).click();
    await page.getByLabel('Session name').click();
@@ -179,23 +138,14 @@ test('Canceling Model Training', async ({ browser }) => {
    await page.locator('div').filter({ hasText: /^Select dataset$/ }).click();
    await page.getByRole('option').first().click();
    await page.locator('div').filter({ hasText: /^Select target$/ }).locator('#combo-box-demo').click();
-   await page.getByRole('option', { name: 'age' }).click();
+   await page.getByRole('option').nth(2).click();
    await page.waitForTimeout(2000);
    await page.getByRole('button', { name: 'Next' }).click();
-   await page.locator('div').filter({ hasText: /^Linear regression$/ }).getByLabel('Linear regression').check();
-   //await page.pause()
-   await page.getByRole('button', { name: 'Advanced params' }).click();
-   await page.getByRole('spinbutton').first().fill('5');
-   await page.getByLabel('Xgboost').check();
-   await page.getByLabel('Random Forest Regression').check();
-   await page.getByLabel('Decision Tree Regression').check();
-   await page.getByRole('button', { name: 'Next' }).click();
+   await selectModel(page);
    await page.waitForTimeout(1000);
    await page.getByRole('button', { name: 'Cancel training' }).first().click();
    await context.close();
    await page.close();
    await browser.close();
-
-
 
   });

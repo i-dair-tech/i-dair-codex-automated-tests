@@ -3,7 +3,6 @@ import { initializeContextAndPage } from './authentification';
 
 async function initializePage() {
   const { context, page } = await initializeContextAndPage();
-  //await Page2.goto('http://localhost:8087/');
   await page.getByLabel('Study name *').click();
   await page.getByLabel('Study name *').fill('HEART DATA');
   await page.getByLabel('Country *').click();
@@ -51,7 +50,6 @@ console.log('Error : The upload failed to complete. ', messageText);
 test('file Upload', async ({browser}) => {
   const page = await initializePage();
   await page.getByRole('button', { name: 'Select dataset' }).setInputFiles(process.env.INPUT_FILE_PATH as string);
-  //variable d'environnemnnn instad 
   await page.getByRole('main').getByRole('button', { name: 'Upload Dataset' }).click();
   await page.waitForTimeout(2000);
   checkSuccessMessage(page, 'File uploaded successfully');
