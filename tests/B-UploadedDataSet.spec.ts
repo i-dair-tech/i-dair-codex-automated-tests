@@ -8,6 +8,7 @@ const { context, page } = await initializeContextAndPage();
 
   await page.getByRole('button', { name: 'Uploaded Datasets' }).click();
   await page.waitForTimeout(2000);
+  await page.pause()
 const nodata = await page.getByText('No uploaded dataset yet ...');
  const isNodataVisible = await nodata.isVisible();
 

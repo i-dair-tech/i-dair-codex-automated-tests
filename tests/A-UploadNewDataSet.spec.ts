@@ -64,7 +64,7 @@ test('file Upload', async ({browser}) => {
 
   //*******required fields******** */
  
-  test.only('required fields', async ({browser}) => {
+  test('required fields', async ({browser}) => {
     const Page1 = await initializePage();
     //await Page1.goto('http://localhost:8087/');
   await Page1.goto('https://qa1.i-dair.africa/');
