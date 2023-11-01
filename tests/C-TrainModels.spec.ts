@@ -1,5 +1,31 @@
 import { test, expect, Page } from '@playwright/test';
 import { initializeContextAndPage } from './authentification';
+
+async function selectModel(page:Page) {
+  const classification_models = await page.getByText('List of classification models').isVisible();
+  if(classification_models){
+  await page.locator('div').filter({ hasText: /^Logistic regression$/ }).getByLabel('Logistic regression').check();
+  await page.getByLabel('Naive Bayes').check();
+  await page.getByLabel('Decision trees').check();
+  await page.getByLabel('Support vector machines (SVM)').check();
+  await page.getByLabel('Xgboost').check();
+  await page.getByLabel('Random Forest Classifier').check();
+  await page.getByLabel('Multilayer perceptron').check();
+  await page.getByRole('button', { name: 'Next' }).click();
+  }else{
+
+    await page.locator('div').filter({ hasText: /^Linear regression$/ }).getByLabel('Linear regression').check();
+    await page.getByLabel('Xgboost').check();
+    await page.getByLabel('Random Forest Regression').check();
+    await page.getByLabel('Decision Tree Regression').check();
+
+  }
+
+
+}
+
+ 
+
 test('Train Models', async ({ browser }) => {
   const { context, page } = await initializeContextAndPage();
   //await page.pause()
@@ -13,14 +39,26 @@ test('Train Models', async ({ browser }) => {
   await page.getByRole('option').first().click();
   await page.waitForTimeout(2000);
   await page.getByRole('button', { name: 'Next' }).click();
-  await page.locator('div').filter({ hasText: /^Logistic regression$/ }).getByLabel('Logistic regression').check();
-  await page.getByLabel('Naive Bayes').check();
-  await page.getByLabel('Decision trees').check();
-  await page.getByLabel('Support vector machines (SVM)').check();
-  await page.getByLabel('Xgboost').check();
-  await page.getByLabel('Random Forest Classifier').check();
-  await page.getByLabel('Multilayer perceptron').check();
-  await page.getByRole('button', { name: 'Next' }).click();
+  await selectModel(page);
+
+  // const classification_models = await page.getByText('List of classification models').isVisible();
+  // if(classification_models){
+  // await page.locator('div').filter({ hasText: /^Logistic regression$/ }).getByLabel('Logistic regression').check();
+  // await page.getByLabel('Naive Bayes').check();
+  // await page.getByLabel('Decision trees').check();
+  // await page.getByLabel('Support vector machines (SVM)').check();
+  // await page.getByLabel('Xgboost').check();
+  // await page.getByLabel('Random Forest Classifier').check();
+  // await page.getByLabel('Multilayer perceptron').check();
+  // await page.getByRole('button', { name: 'Next' }).click();
+  // }else{
+
+  //   await page.locator('div').filter({ hasText: /^Linear regression$/ }).getByLabel('Linear regression').check();
+  //   await page.getByLabel('Xgboost').check();
+  //   await page.getByLabel('Random Forest Regression').check();
+  //   await page.getByLabel('Decision Tree Regression').check();
+
+  // }
 
   //await page.pause()
   const element = await page.locator('.MuiCardContent-root').first();
@@ -40,19 +78,21 @@ test('Train Models', async ({ browser }) => {
   await page.locator('div').filter({ hasText: /^Select dataset$/ }).click();
   await page.getByRole('option').first().click();
   await page.locator('div').filter({ hasText: /^Select target$/ }).locator('#combo-box-demo').click();
-  await page.getByRole('option', { name: 'age' }).click();
+  await page.getByRole('option').nth(1).click();
   await page.waitForTimeout(2000);
-  await page.getByRole('button', { name: 'Next' }).click();
-  await page.locator('div').filter({ hasText: /^Linear regression$/ }).getByLabel('Linear regression').check();
-  await page.getByLabel('Xgboost').check();
-  await page.getByLabel('Random Forest Regression').check();
-  await page.getByLabel('Decision Tree Regression').check();
+  // await page.getByRole('button', { name: 'Next' }).click();
+  // await page.locator('div').filter({ hasText: /^Linear regression$/ }).getByLabel('Linear regression').check();
+  // await page.getByLabel('Xgboost').check();
+  // await page.getByLabel('Random Forest Regression').check();
+  // await page.getByLabel('Decision Tree Regression').check();
   //await page.pause()
   await page.getByRole('button', { name: 'Next' }).click();
-  const nextbutton=await page.getByRole('button', { name: 'Next' }).isEditable();
+  await selectModel(page);
+  await  page.getByRole('button', { name: 'Next' });
   await page.waitForTimeout(6000);
-  if(nextbutton){await page.getByRole('button', { name: 'Next' }).click();}
+  await page.getByRole('button', { name: 'Next' }).click();
   await page.waitForTimeout(2000);
+  await page.getByRole('button', { name: 'Next' }).click();
   const alertElement = await page.getByLabel('Session name');
   //const alertElement = await page.waitForSelector('[role="alert"]');
   const isAlertVisible = await alertElement.isVisible();

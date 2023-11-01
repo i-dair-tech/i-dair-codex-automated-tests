@@ -12,6 +12,7 @@ export async function initializeContextAndPage() :Promise<{ context: BrowserCont
 
     const page = await context.newPage();
     await page.goto('https://qa1.i-dair.africa/');
+    //await page.pause()
     const auth = await page.getByRole('button', { name: 'Sign in with Google' }).isVisible();
     if (auth){
    const page1Promise = page.waitForEvent('popup');

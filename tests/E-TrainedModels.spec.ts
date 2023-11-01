@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+const chai = require('chai');
 import { initializeContextAndPage } from './authentification';
 test('Trained Models', async ({ browser }) => {
   const { context, page } = await initializeContextAndPage();
@@ -39,6 +40,8 @@ test('Trained Models', async ({ browser }) => {
   await page.getByLabel('File upload').check();
   await page.getByRole('button', { name: 'Select dataset' }).setInputFiles(process.env.INPUT_PREDICTION_PATH as string);
   await page.getByRole('button', { name: 'Submit' }).click();
+  const Prediction = await page.$eval('[role="alert"]', e => e.textContent);
+  chai.expect(Prediction).to.equal('Prediction results');
   await page.waitForTimeout(5000)
   const downloadPromise = page.waitForEvent('download');
   await page.locator('.MuiTableCell-root > .MuiButtonBase-root').first().click();
