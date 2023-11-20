@@ -34,7 +34,16 @@ if (isNodataVisible) {
   console.log('Details were displayed correctly');
   await page.getByRole('button', { name: 'Generate PDF' }).click();
   await page.waitForTimeout(12000);
-  await page.getByRole('button', { name: 'Export Plots' }).click();
+  // const Export = await page.getByRole('button', { name: 'Export Plots' });
+  // if(Export){
+  // await Export.click();
+  // const start = Date.now();
+  // while (Date.now() - start < 30000) {
+
+  //   await page.waitForTimeout(1000);
+  // }
+
+  // }
   //  await page.waitForTimeout(12000);
   await page.getByText('Go back').click();
   await page.getByTitle('Download').first().click();

@@ -35,6 +35,7 @@ test('Trained Models', async ({ browser }) => {
   await page.getByRole('option').first().getByRole('checkbox').check();
   await page.keyboard.press('Escape');
   await page.getByLabel('File upload').check();
+  await page.waitForTimeout(3000);
   await page.getByRole('button', { name: 'Select dataset' }).setInputFiles(process.env.INPUT_PREDICTION_PATH as string);
   await page.getByRole('button', { name: 'Submit' }).click();
   const Prediction = await page.$eval('[role="alert"]', e => e.textContent);

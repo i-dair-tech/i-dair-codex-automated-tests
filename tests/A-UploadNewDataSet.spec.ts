@@ -67,7 +67,7 @@ test('file Upload', async ({browser}) => {
   test('required fields', async ({browser}) => {
     const Page1 = await initializePage();
     //await Page1.goto('http://localhost:8087/');
-  await Page1.goto('https://qa1.i-dair.africa/');
+  await Page1.goto(process.env.URL as string);
   await Page1.waitForTimeout(5000);
   await Page1.getByRole('main').getByRole('button', { name: 'Upload Dataset' }).click();
   await Page1.waitForTimeout(6000);
